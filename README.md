@@ -1,3 +1,4 @@
 # melophied-server
+- [Front-end Repository](https://github.com/chuckchoiboi/melophied)
 
-link to frontend (react): https://github.com/chuckchoiboi/melophied
+- [Back-end Repository](https://github.com/ifrah1/melophied-server)
