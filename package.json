@@ -1,0 +1,27 @@
+{
+  "name": "melophied-server",
+  "version": "1.0.0",
+  "description": "Project 3",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ifrah1/melophied-server.git"
+  },
+  "type": "module",
+  "author": "melophied team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ifrah1/melophied-server/issues"
+  },
+  "homepage": "https://github.com/ifrah1/melophied-server#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.0",
+    "morgan": "^1.10.0"
+  }
+}
