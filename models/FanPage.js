@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema(
   {
-    author: {
-      type: String,
-      required: true,
-    },
+    author: [{
+      type: mongoose.Types.ObjectId,
+      ref: 'User'
+    }],
     artist: {
       type: String,
       required: true,
@@ -30,10 +30,10 @@ const userSchema = new mongoose.Schema(
         type: String,
         required: false,
     },
-    upvote: {
-        type: String,
-        required: false,
-    }
+    upvote: [{
+      type: mongoose.Types.ObjectId,
+      ref: 'User'
+    }]
   },
   {
     timestamps: true,
