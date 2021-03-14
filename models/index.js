@@ -1,10 +1,11 @@
 // DB connection
 import '../config/db.connection.js';
-// import [modelName] from './path';
+import User from './User';
+import FanPage from './FanPage';
 
 const db = {
-    User: require('./User'),
-    FanPage: require('./FanPage'),
+    User,
+    FanPage,
 }
 
 export default db;
