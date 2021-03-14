@@ -10,23 +10,23 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    page_title: {
+    pageTitle: {
       type: String,
       required: true,
     },
-    page_bio: {
+    pageBio: {
         type: String,
         required: false,
     },
-    user_tracks: {
+    userTracks: {
         type: String,
         required: false,
     },
-    user_albums: {
+    userAlbums: {
         type: String,
         required: false,
     },
-    user_shows: {
+    userShows: {
         type: String,
         required: false,
     },
