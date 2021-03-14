@@ -3,7 +3,8 @@ import '../config/db.connection.js';
 // import [modelName] from './path';
 
 const db = {
-    //Model Names
+    User: require('./User'),
+    FanPage: require('./FanPage'),
 }
 
 export default db;
