@@ -1,8 +1,10 @@
+import encrypt from '../../auth/encrypt.js';
+
 const usersData = [
     {
         username: "Arif",
         email: "arif@arif.com",
-        password: "1234",
+        password: encrypt.hashPassword('1234'),
     },
 
 ]
