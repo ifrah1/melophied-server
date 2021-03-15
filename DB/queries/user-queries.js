@@ -20,9 +20,9 @@ const verifyUser = async (username, password) => {
         // if user is found then check to see if password is correct 
         const matchPassword = await bcrypt.compare(password, foundUser.password);
 
-        // return true or false if user has valid credentials
+        // return founded user if user has valid credentials else return false  
         if (matchPassword) {
-            return true;
+            return foundUser;
         } else {
             return false;
         }

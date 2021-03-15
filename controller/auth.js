@@ -1,33 +1,39 @@
-// import jwtFunctions from '../auth/jwt.js';
-// /* all models */
-// import db from '../models/index.js';
-// const { User } = db;
-
 import userQueries from '../DB/queries/user-queries.js';
+import jwtFunctions from '../auth/jwt.js';
 
+const { createToken } = jwtFunctions;
 
 const login = async (req, res) => {
-    // console.log(req.body)
 
     try {
         // grab data from body
-        const { username, email, password } = req.body;
-
-        const exist = await userQueries.verifyUser(username, password)
-        console.log('[Auth.js.login]', exist);
+        const { username, password } = req.body;
 
         // check if credentials are empty 
         if (!username || !password) throw 'Invalid Credentials';
 
-        return res.status(200).json({
-            status: 200,
-            message: 'Success',
-        });
+        // Verify if user credentials matches 
+        const verifiedUser = await userQueries.verifyUser(username, password)
+        // console.log('[Auth.js.login]', exist);
+
+
+        if (verifiedUser !== false) {
+
+            const userJWT = createToken(verifiedUser);
+            console.log('[Auth.js Line 24]', userJWT);
+
+            return res.status(200).json({
+                status: 200,
+                message: 'Success',
+                userJWT
+            });
+        }
 
     } catch (error) {
+        //need a respond back for 'line 11'
         return res.status(500).json({
             status: 500,
-            message: error,
+            message: 'Server error',
         });
 
     }
