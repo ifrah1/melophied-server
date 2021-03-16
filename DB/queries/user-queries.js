@@ -11,7 +11,7 @@ const verifyUser = async (username, password) => {
             {
                 $or: [
                     { 'username': username },
-                    // { 'email': username }
+                    { 'email': username }
                 ]
             });
 

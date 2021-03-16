@@ -4,7 +4,6 @@ import jwtFunctions from '../auth/jwt.js';
 const { createToken } = jwtFunctions;
 
 const login = async (req, res) => {
-
     try {
         // grab data from body
         const { username, password } = req.body;
@@ -14,11 +13,9 @@ const login = async (req, res) => {
 
         // Verify if user credentials matches 
         const verifiedUser = await userQueries.verifyUser(username, password)
-        // console.log('[Auth.js.login]', exist);
-
 
         if (verifiedUser !== false) {
-
+            // create the json web token 
             const userJWT = createToken(verifiedUser);
             console.log('[Auth.js Line 24]', userJWT);
 
@@ -27,15 +24,24 @@ const login = async (req, res) => {
                 message: 'Success',
                 userJWT
             });
+        } else {
+            throw 'Invalid Credentials';
         }
 
     } catch (error) {
-        //need a respond back for 'line 11'
+        // if invalid credentials then let user know
+        if (error === 'Invalid Credentials') {
+            return res.status(401).json({
+                status: 401,
+                message: 'Invalid Credentials',
+            });
+
+        }
+
         return res.status(500).json({
             status: 500,
             message: 'Server error',
         });
-
     }
 };
 
