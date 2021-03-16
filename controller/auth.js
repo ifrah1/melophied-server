@@ -1,7 +1,9 @@
 import userQueries from '../DB/queries/user-queries.js';
 import jwtFunctions from '../auth/jwt.js';
 import encrypt from '../auth/encrypt.js';
+import db from '../models/index.js';
 
+const { User } = db;
 //import user queries functions
 const { verifyUser, usernameEmailExist } = userQueries;
 //import jwt functions
@@ -27,14 +29,16 @@ const register = async (req, res) => {
         // hash the password 
         const hashedPassword = hashPassword(verifiedPassword);
 
-        // const newUser = {
-        //     firstName,
-        //     lastName,
-        //     email,
-        //     password
-        // };
-
-        // await db.User.create(newUser);
+        // create the user in DB
+        const newUser = {
+            firstName,
+            lastName,
+            email,
+            username,
+            password: hashedPassword
+        };
+        // send user to db for creation
+        await db.User.create(newUser);
 
         return res.status(201).json({
             status: 201,
@@ -43,6 +47,8 @@ const register = async (req, res) => {
         });
 
     } catch (error) {
+        console.log(error); //keep just incase if db error
+
         //user already exists error 
         if (error === "emailExists" || error === "userExists") {
             return res.status(409).json({
@@ -82,7 +88,6 @@ const login = async (req, res) => {
         if (verifiedUser !== false) {
             // create the json web token 
             const userJWT = createToken(verifiedUser);
-            console.log('[Auth.js Line 24]', userJWT);
 
             return res.status(200).json({
                 status: 200,
@@ -100,7 +105,6 @@ const login = async (req, res) => {
                 status: 401,
                 message: 'Invalid Credentials',
             });
-
         }
 
         return res.status(500).json({
