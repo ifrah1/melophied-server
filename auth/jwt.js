@@ -11,9 +11,9 @@ const createToken = (user) => {
 
     const token = jwt.sign(
         payload,
-        (process.env.TOKEN_SECRET || 'TESTFORNOW'),
+        process.env.TOKEN_SECRET,
         {
-            expiresIn: '24' // will add env variable 
+            expiresIn: '24h' // will add env variable 
         }
     );
 
@@ -21,7 +21,7 @@ const createToken = (user) => {
 };
 
 const decodeUser = (token) => {
-    let decoded = jwt.verify(token, (process.env.TOKEN_SECRET || 'TESTFORNOW'))
+    let decoded = jwt.verify(token, process.env.TOKEN_SECRET)
 
     return decoded;
 }

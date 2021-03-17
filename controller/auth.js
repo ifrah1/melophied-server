@@ -114,10 +114,18 @@ const login = async (req, res) => {
     }
 };
 
+// send user data
+const getUserData = async (req, res) => {
+    return res.status(200).json({
+        status: 200,
+        message: 'Made it',
+    });
+};
 
 const authCtrls = {
     login,
-    register
+    register,
+    getUserData
 }
 
 export default authCtrls;
