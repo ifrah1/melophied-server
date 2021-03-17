@@ -9,8 +9,6 @@ const createToken = (user) => {
         _id: user._id,
     };
 
-    console.log('[jwt.js]', payload)
-
     const token = jwt.sign(
         payload,
         (process.env.TOKEN_SECRET || 'TESTFORNOW'),
@@ -18,7 +16,6 @@ const createToken = (user) => {
             expiresIn: '24' // will add env variable 
         }
     );
-    console.log('TOken:', token)
 
     return token;
 };

@@ -60,7 +60,7 @@ const register = async (req, res) => {
         // password does not match error
         if (error === "passwordMismatch") {
             return res.status(401).json({
-                status: 409,
+                status: 401,
                 message: error,
             });
         }
@@ -83,7 +83,7 @@ const login = async (req, res) => {
         if (!username || !password) throw 'Invalid Credentials';
 
         // Verify if user credentials matches 
-        const verifiedUser = await verifyUser(username, password)
+        const verifiedUser = await verifyUser(username, password);
 
         if (verifiedUser !== false) {
             // create the json web token 
