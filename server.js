@@ -36,6 +36,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', routes.auth);
+app.use('/api/melophied', routes.melophied);
 
 /* App Listener */
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
