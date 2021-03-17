@@ -22,10 +22,8 @@ const createToken = (user) => {
 
 const decodeUser = (token) => {
     let decoded = jwt.verify(token, process.env.TOKEN_SECRET)
-
     return decoded;
 }
-
 
 const jwtFunctions = {
     createToken,

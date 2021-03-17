@@ -116,6 +116,10 @@ const login = async (req, res) => {
 
 // send user data
 const getUserData = async (req, res) => {
+    let foundUser = await User.findById(req.user._id).select('-password');
+    console.log(foundUser);
+
+
     return res.status(200).json({
         status: 200,
         message: 'Made it',
