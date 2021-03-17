@@ -38,7 +38,7 @@ const register = async (req, res) => {
             password: hashedPassword
         };
         // send user to db for creation
-        await db.User.create(newUser);
+        await User.create(newUser);
 
         return res.status(201).json({
             status: 201,
@@ -50,7 +50,7 @@ const register = async (req, res) => {
         console.log(error); //keep just incase if db error
 
         //user already exists error 
-        if (error === "emailExists" || error === "userExists") {
+        if (error === "emailExists" || error === "usernameExists") {
             return res.status(409).json({
                 status: 409,
                 message: error,
