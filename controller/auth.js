@@ -13,7 +13,6 @@ const { hashPassword } = encrypt;
 
 // register new user
 const register = async (req, res) => {
-
     try {
         const { firstName, lastName, email, username, password, verifiedPassword } = req.body;
 
@@ -116,14 +115,21 @@ const login = async (req, res) => {
 
 // send user data
 const getUserData = async (req, res) => {
-    let foundUser = await User.findById(req.user._id).select('-password');
-    console.log(foundUser);
+    try {
+        //get user data minus the password
+        let foundUser = await User.findById(req.user._id).select('-password');
 
-
-    return res.status(200).json({
-        status: 200,
-        message: 'Made it',
-    });
+        return res.status(200).json({
+            status: 200,
+            message: 'Success',
+            foundUser
+        });
+    } catch (error) {
+        return res.status(500).json({
+            status: 500,
+            message: 'Server error',
+        });
+    }
 };
 
 const authCtrls = {

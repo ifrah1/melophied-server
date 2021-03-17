@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 
+// creates a json web token for user login
 const createToken = (user) => {
     // payload for token
     // ask frontend team what they will need in payload
@@ -20,6 +21,7 @@ const createToken = (user) => {
     return token;
 };
 
+// decode the jwt token that front end sends us
 const decodeUser = (token) => {
     let decoded = jwt.verify(token, process.env.TOKEN_SECRET)
     return decoded;
