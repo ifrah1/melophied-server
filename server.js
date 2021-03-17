@@ -32,9 +32,10 @@ app.use(cors());
 
 /* Routes */
 app.get('/', (req, res) => {
-    res.send('Hello')
+  res.send('Hello')
 });
 
+app.use('/api/auth', routes.auth);
 
 /* App Listener */
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
