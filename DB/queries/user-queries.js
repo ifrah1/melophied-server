@@ -4,7 +4,6 @@ import db from '../../models/index.js';
 const { User } = db;
 
 const verifyUser = async (username, password) => {
-
     try {
         // Check in Db if email or username exists
         let foundUser = await User.findOne(
@@ -28,7 +27,6 @@ const verifyUser = async (username, password) => {
         }
 
     } catch (error) {
-        console.log(error);
         return false;
     }
 };
@@ -46,7 +44,6 @@ const usernameEmailExist = async (username, email) => {
         return false;
 
     } catch (error) {
-        console.log(error);
         return false;
     }
 }
@@ -67,7 +64,6 @@ const usernameEmailExist = async (username, email) => {
 //         return false;
 //     }
 // }
-
 
 const userQueries = {
     verifyUser,
