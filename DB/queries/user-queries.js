@@ -48,23 +48,6 @@ const usernameEmailExist = async (username, email) => {
     }
 }
 
-// const emailExist = async (email) => {
-//     try {
-//         // Check in Db if email exists
-//         let foundUser = await User.findOne({ email });
-
-//         if (foundUser) {
-//             return true
-//         } else {
-//             return false
-//         }
-
-//     } catch (error) {
-//         console.log(error);
-//         return false;
-//     }
-// }
-
 const updateUser = async (userID, newUserData) => {
     try {
         // Update the user information
@@ -80,7 +63,7 @@ const updateUser = async (userID, newUserData) => {
             }
          );
 
-         return updateUser;
+         return updatedUser;
 
     } catch (error) {
         console.log(error);
@@ -88,10 +71,30 @@ const updateUser = async (userID, newUserData) => {
     }
 }
 
+// Checking the database to see if the new chosen username exists
+const verifyUsername = async (username) => {
+        try {
+        // Check if the username already exists
+        let foundUser = await User.findOne({ username });
+
+        if (foundUser) {
+            return true
+        } else {
+            return false
+        }
+
+    } catch (error) {
+        console.log(error);
+        return true;
+    }
+}
+
+      
 const userQueries = {
     verifyUser,
     usernameEmailExist,
     updateUser,
+    verifyUsername,
 }
 
 export default userQueries;
