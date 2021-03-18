@@ -5,7 +5,7 @@ import db from '../models/index.js';
 
 const { User } = db;
 //import user queries functions
-const { verifyUser, usernameEmailExist } = userQueries;
+const { verifyUser, usernameEmailExist, updateUser } = userQueries;
 //import jwt functions
 const { createToken } = jwtFunctions;
 // import encrypt functions
@@ -135,14 +135,26 @@ const getUserData = async (req, res) => {
 // update the user data
 const updateUserData = async (req, res) => {
     try {
+        console.log(req.body, req.params.userID)
         
+        const updatedUser = await updateUser( req.params.userID, req.body )
+
+        if (updateUser === false) throw "updatedUserFailed";
         
         return res.status(200).json({
             status: 200,
-            message: 'Made it Update User Profile',
+            message: 'Success',
+            updatedUser,
         });
     } catch (error) {
         console.log(error)
+        
+        if (error === "updateUserFailed") {
+            return res.status(400).json({
+                status: 400,
+                message: 'Failed to update user',
+            });
+        }
         return res.status(500).json({
             status: 500,
             message: 'Server error',

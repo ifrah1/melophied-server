@@ -65,9 +65,33 @@ const usernameEmailExist = async (username, email) => {
 //     }
 // }
 
+const updateUser = async (userID, newUserData) => {
+    try {
+        // Update the user information
+        const updatedUser = await User.findByIdAndUpdate(
+            userID,
+            {
+                $set:{
+                    ...newUserData
+                }
+            },
+            {
+                new: true
+            }
+         );
+
+         return updateUser;
+
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
 const userQueries = {
     verifyUser,
     usernameEmailExist,
+    updateUser,
 }
 
 export default userQueries;
