@@ -5,7 +5,7 @@ import db from '../models/index.js';
 
 const { User } = db;
 //import user queries functions
-const { verifyUser, usernameEmailExist } = userQueries;
+const { verifyUser, usernameEmailExist, updateUser, verifyUsername } = userQueries;
 //import jwt functions
 const { createToken } = jwtFunctions;
 // import encrypt functions
@@ -132,10 +132,54 @@ const getUserData = async (req, res) => {
     }
 };
 
+// update the user data
+const updateUserData = async (req, res) => {
+    try {
+
+        if(req.body.hasOwnProperty('username')) {
+            const userExists = await verifyUsername(req.body.username);
+            if(userExists) throw 'userExists';
+        }
+        
+        const updatedUser = await updateUser( req.params.userID, req.body );
+
+        if (updateUser === false) throw 'updatedUserFailed';
+        
+        return res.status(200).json({
+            status: 200,
+            message: 'Success',
+            updatedUser,
+        });
+    } catch (error) {
+        console.log(error)
+        
+        // DB failed to update user
+        if (error === "updateUserFailed") {
+            return res.status(400).json({
+                status: 400,
+                message: 'Failed to update user',
+            });
+        }
+        // send message if username already exists
+        if (error === "userExists") {
+            return res.status(400).json({
+                status: 400,
+                message: 'Username already exists',
+            });
+        }
+
+        return res.status(500).json({
+            status: 500,
+            message: 'Server error',
+        });
+    }
+};
+
 const authCtrls = {
     login,
     register,
-    getUserData
+    getUserData,
+    updateUserData,
 }
 
 export default authCtrls;
