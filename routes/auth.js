@@ -14,5 +14,8 @@ router.post('/login', authCtrls.login);
 // route: app.com/api/auth/user
 router.get('/user', authenticateJWT, authCtrls.getUserData);
 
+// route: app.com/api/auth/updateProfile/:userID
+router.put('/updateProfile/:userID', authenticateJWT, authCtrls.updateUserData);
+
 
 export { router as auth };

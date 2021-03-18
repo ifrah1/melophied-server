@@ -132,10 +132,29 @@ const getUserData = async (req, res) => {
     }
 };
 
+// update the user data
+const updateUserData = async (req, res) => {
+    try {
+        
+        
+        return res.status(200).json({
+            status: 200,
+            message: 'Made it Update User Profile',
+        });
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            status: 500,
+            message: 'Server error',
+        });
+    }
+};
+
 const authCtrls = {
     login,
     register,
-    getUserData
+    getUserData,
+    updateUserData,
 }
 
 export default authCtrls;
