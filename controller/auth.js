@@ -135,13 +135,23 @@ const getUserData = async (req, res) => {
 // update the user data
 const updateUserData = async (req, res) => {
     try {
+        const userID = req.params.userID;
+        //username from React front end
+        const { username } = req.body;
+        //grab username from MongoDB
+        const foundUser = await User.findById(userID).select('-password');
 
-        if(req.body.hasOwnProperty('username')) {
-            const userExists = await verifyUsername(req.body.username);
+        //if front end username is not equal to Database stored username...
+        if(username !== foundUser.username) {
+            const userExists = await verifyUsername(username);
             if(userExists) throw 'userExists';
         }
         
-        const updatedUser = await updateUser( req.params.userID, req.body );
+        // if(req.body.hasOwnProperty('username')) {
+        //     const userExists = await verifyUsername(req.body.username);
+        //     if(userExists) throw 'userExists';
+        // }
+        const updatedUser = await updateUser( userID, req.body );
 
         if (updateUser === false) throw 'updatedUserFailed';
         
