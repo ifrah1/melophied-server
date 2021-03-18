@@ -12,11 +12,14 @@ const { createToken } = jwtFunctions;
 const { hashPassword } = encrypt;
 
 
+const exploreData = (req, res) => {
 
+    return res.send('Test');
 
+}
 
 const melophiedCtrls = {
-
+    exploreData,
 }
 
 export default melophiedCtrls;

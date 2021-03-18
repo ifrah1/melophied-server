@@ -3,7 +3,7 @@ import authenticateJWT from '../middleware/authenticate.js';
 
 const router = express.Router();
 
-// import melophiedCtrls from '../controller/melophiedCtrls.js';
+import melophiedCtrls from '../controller/melophied.js';
 
 //route: app.com/api/melophied/
 router.get('/', (req, res) => {
