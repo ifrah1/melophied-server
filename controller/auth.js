@@ -142,19 +142,19 @@ const updateUserData = async (req, res) => {
         const foundUser = await User.findById(userID).select('-password');
 
         //if front end username is not equal to Database stored username...
-        if(username !== foundUser.username) {
+        if (username !== foundUser.username) {
             const userExists = await verifyUsername(username);
-            if(userExists) throw 'userExists';
+            if (userExists) throw 'userExists';
         }
-        
+
         // if(req.body.hasOwnProperty('username')) {
         //     const userExists = await verifyUsername(req.body.username);
         //     if(userExists) throw 'userExists';
         // }
-        const updatedUser = await updateUser( userID, req.body );
+        const updatedUser = await updateUser(userID, req.body);
 
         if (updateUser === false) throw 'updatedUserFailed';
-        
+
         return res.status(200).json({
             status: 200,
             message: 'Success',
@@ -162,7 +162,7 @@ const updateUserData = async (req, res) => {
         });
     } catch (error) {
         console.log(error)
-        
+
         // DB failed to update user
         if (error === "updateUserFailed") {
             return res.status(400).json({
