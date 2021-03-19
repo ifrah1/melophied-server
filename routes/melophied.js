@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
 
 //GET
 //route: app.com/api/melophied/explore
+router.use('/explore', melophiedCtrls.exploreData);
 
 //POST
 //route: app.com/api/melophied/createFanPage
