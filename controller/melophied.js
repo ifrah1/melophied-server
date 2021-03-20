@@ -147,11 +147,32 @@ const createFanPage = async (req, res) => {
     }
 }
 
+// FanPage Delete
+const destroyFanPage = async ( req, res ) => {
+    try {
+    
+      const deletedFanPage = await db.FanPage.findByIdAndDelete( req.params.fanPageID );
+      return res.status(200).json({
+        status: 200,
+        message: 'Fan Page Deleted Successfully!!!!',
+        deletedFanPage,
+        requestedAt: new Date().toLocaleString(),
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: 500,
+        message: 'Sorry something went wrong. Internal server Error',
+        requestAt: new Date().toLocaleString()
+      });
+    }
+  };
+
 const melophiedCtrls = {
     exploreData,
     createFanPage,
     getFanPage,
-    topFivePages
+    topFivePages,
+    destroyFanPage
 }
 
 export default melophiedCtrls;
