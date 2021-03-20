@@ -61,7 +61,7 @@ const getFanPage = async (req, res) => {
 //create FanPage
 const createFanPage = async (req, res) => {
     try {
-        const { artistData,pageTitle,pageBio,userTracks,userAlbums,userShows } = req.body;
+        const { artistData,pageTitle,pageBio,trackList,albumList,userShows } = req.body;
         console.log(req.user);
         
         // throw error if pageTitle exists
@@ -73,8 +73,8 @@ const createFanPage = async (req, res) => {
             artistData,
             pageTitle,
             pageBio,
-            userTracks,
-            userAlbums,
+            trackList,
+            albumList,
             userShows,
         };
         // send FanPage to db for creation

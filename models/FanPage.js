@@ -19,12 +19,14 @@ const FanPageSchema = new mongoose.Schema(
             type: String,
             required: false,
         },
-        userTracks: [{
-            type: String,
+        trackList: [{
+            type: Map,
+            of: String,
             required: false,
         }],
-        userAlbums: [{
-            type: String,
+        albumList: [{
+            type: Map,
+            of: String,
             required: false,
         }],
         userShows: [{
