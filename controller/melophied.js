@@ -5,7 +5,7 @@ import db from '../models/index.js';
 
 const { User, FanPage } = db;
 //import user queries functions
-const { verifyUser, usernameEmailExist, updateUser, verifyUsername, fanPageExist } = userQueries;
+const { verifyUser, usernameEmailExist, updateUser, verifyUsername} = userQueries;
 //import jwt functions
 const { createToken } = jwtFunctions;
 // import encrypt functions
