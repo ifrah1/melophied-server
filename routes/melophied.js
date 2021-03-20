@@ -15,12 +15,12 @@ router.get('/', (req, res) => {
 
 //POST
 //route: app.com/api/melophied/createFanPage
-
-router.post('/createFanPage',authenticateJWT, melophiedCtrls.createFanPage);
+router.post('/fanPage/create',authenticateJWT, melophiedCtrls.createFanPage);
 
 //GET
 //route: app.com/api/melophied/getFanPage/:fanpageID
-router.get('/getFanPage/:fanPageID', melophiedCtrls.getFanPage);
+router.get('/fanPage/:fanPageID', melophiedCtrls.getFanPage);
+
 //PUT
 //route: app.com/api/melophied/getFanPage/:fanpageID
 
@@ -29,6 +29,5 @@ router.get('/getFanPage/:fanPageID', melophiedCtrls.getFanPage);
 
 //PUT
 //route: app.com/api/melophied/upvote/:userid //discuss later 
-
 
 export { router as melophied };
