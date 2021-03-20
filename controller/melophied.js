@@ -6,7 +6,9 @@ const { User, FanPage } = db;
 const exploreData = async (req, res) => {
     try {
         // send all fan pages based on created date desc order 
-        const allPages = await FanPage.find().sort('-createdAt').select('pageTitle artist author');
+        const allPages = await FanPage.find().sort('-createdAt').select('pageTitle artistData');
+
+        if (!allPages) throw 'noPages';
 
         return res.status(200).json({
             status: 200,
@@ -15,6 +17,14 @@ const exploreData = async (req, res) => {
         });
     } catch (error) {
         console.log(error)
+        // return error message if no fan pages created yet
+        if (error === "noPages") {
+            return res.status(204).json({
+                status: 204,
+                message: 'No Fan Pages',
+            });
+        }
+
         return res.status(500).json({
             status: 500,
             message: 'Server error',

@@ -3,7 +3,7 @@ import jwtFunctions from '../auth/jwt.js';
 import encrypt from '../auth/encrypt.js';
 import db from '../models/index.js';
 
-const { User } = db;
+const { User, FanPage } = db;
 //import user queries functions
 const { verifyUser, usernameEmailExist, updateUser, verifyUsername } = userQueries;
 //import jwt functions
@@ -117,7 +117,14 @@ const login = async (req, res) => {
 const getUserData = async (req, res) => {
     try {
         //get user data minus the password
-        let foundUser = await User.findById(req.user._id).select('-password');
+        const foundUser = await User.findById(req.user._id).select('-password').lean();
+
+        //grab users top 4 most recent pages
+        const recentPages = await FanPage.find({
+            author: req.user._id
+        }).sort('-createdAt').limit(4);
+
+        foundUser.recentPages = recentPages;
 
         return res.status(200).json({
             status: 200,
@@ -147,10 +154,6 @@ const updateUserData = async (req, res) => {
             if (userExists) throw 'userExists';
         }
 
-        // if(req.body.hasOwnProperty('username')) {
-        //     const userExists = await verifyUsername(req.body.username);
-        //     if(userExists) throw 'userExists';
-        // }
         const updatedUser = await updateUser(userID, req.body);
 
         if (updateUser === false) throw 'updatedUserFailed';
