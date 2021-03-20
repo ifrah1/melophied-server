@@ -149,10 +149,23 @@ const createFanPage = async (req, res) => {
 
 const updateFanPage = async (req, res) => {
     try {
+        // Update the user information
+        const updatedFanPage = await FanPage.findByIdAndUpdate(
+            req.params.fanPageID,
+            {
+                $set:{
+                    ...req.body
+                }
+            },
+            {
+                new: true
+            }
+            );
  
         return res.status(200).json({
             status: 200,
             message: 'Success',
+            updatedFanPage,
         });
 
     } catch (error) {
