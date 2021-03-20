@@ -50,7 +50,7 @@ const createFanPage = async (req, res) => {
     } catch (error) {
         console.log(error); //keep just incase if db error
 
-        //fan page already exists error 
+        //fan page missing required fields to create the page (either page title/artist/author)
         if ( error === "missingRequiredFields" ) {
             return res.status(409).json({
                 status: 409,
