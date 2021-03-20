@@ -16,6 +16,8 @@ router.get('/', (req, res) => {
 //POST
 //route: app.com/api/melophied/createFanPage
 
+router.post('/createFanPage',authenticateJWT, melophiedCtrls.createFanPage);
+
 //GET
 //route: app.com/api/melophied/getFanPage/:fanpageID
 router.get('/getFanPage/:fanPageID', melophiedCtrls.getFanPage);
