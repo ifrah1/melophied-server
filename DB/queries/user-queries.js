@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import FanPage from '../../models/FanPage.js';
 import db from '../../models/index.js';
 
 const { User } = db;
@@ -89,12 +90,26 @@ const verifyUsername = async (username) => {
     }
 }
 
+const fanPageExist = async (pageTitle) => {
+    try {
+        // Check in Db if username exists
+        let foundFanPage = await FanPage.findOne({ pageTitle });
+        if (foundFanPage) return 'fanPageExists';
+
+        return false;
+
+    } catch (error) {
+        return false;
+    }
+}
+
       
 const userQueries = {
     verifyUser,
     usernameEmailExist,
     updateUser,
     verifyUsername,
+    fanPageExist,
 }
 
 export default userQueries;
