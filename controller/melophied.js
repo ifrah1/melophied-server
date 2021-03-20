@@ -147,11 +147,31 @@ const createFanPage = async (req, res) => {
     }
 }
 
+const updateFanPage = async (req, res) => {
+    try {
+ 
+        return res.status(200).json({
+            status: 200,
+            message: 'Success',
+        });
+
+    } catch (error) {
+        console.log(error); //keep just incase if db error
+
+        // all other errors 
+        return res.status(500).json({
+            status: 500,
+            message: "Server Error",
+        });
+    }
+}
+
 const melophiedCtrls = {
     exploreData,
     createFanPage,
     getFanPage,
-    topFivePages
+    topFivePages,
+    updateFanPage,
 }
 
 export default melophiedCtrls;

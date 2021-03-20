@@ -28,7 +28,7 @@ router.get('/fanPage/:fanPageID', melophiedCtrls.getFanPage);
 
 //PUT
 //route: app.com/api/melophied/getFanPage/:fanpageID
-
+router.put('/fanPage/:fanPageID/update', authenticateJWT, melophiedCtrls.updateFanPage)
 //DELETE
 //route: app.com/api/melophied/getFanPage/:fanpageID
 
