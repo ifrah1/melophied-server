@@ -25,7 +25,7 @@ const createFanPage = async (req, res) => {
         const { author,artist,pageTitle,pageBio,userTracks,userAlbums,userShows } = req.body;
 
         // check if FanPage exists already based on author or pageTitle
-        const fanPageExists = await fanPageExist( author, pageTitle );
+        const fanPageExists = await fanPageExist( artist, pageTitle );
 
         // throw error if pageTitle exists
         if (fanPageExists) throw fanPageExists;
