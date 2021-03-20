@@ -61,16 +61,16 @@ const getFanPage = async (req, res) => {
 //create FanPage
 const createFanPage = async (req, res) => {
     try {
-        const { author,artist,pageTitle,pageBio,userTracks,userAlbums,userShows } = req.body;
-
+        const { artistData,pageTitle,pageBio,userTracks,userAlbums,userShows } = req.body;
+        console.log(req.user);
         
         // throw error if pageTitle exists
-        if ( !pageTitle || !artist || !author ) throw "missingRequiredFields";
+        if ( !pageTitle || !artistData ) throw "missingRequiredFields";
 
         // create the user in DB
         const newFanPage = {
-            author,
-            artist,
+            author: req.user._id,
+            artistData,
             pageTitle,
             pageBio,
             userTracks,
