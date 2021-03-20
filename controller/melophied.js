@@ -20,26 +20,41 @@ const getFanPage = async (req, res) => {
 
     try {
         //get user data minus the password
-        let foundFanPage = await FanPage.findById(req.params.fanPageID);
+        let foundFanPage = await FanPage.findById(req.params.fanPageID).lean(); // lean allows us to add extra key values
       
-        if(foundFanPage = null) {
+        if(foundFanPage === null) throw "noFanPageContent";
+
+        const authorUsername = await User.findById(foundFanPage.author).select("username");
+
+        if(!authorUsername) throw "noAuthor";
+        foundFanPage.username = authorUsername.username;
+            
+        return res.status(200).json({
+                status: 200,
+                message: 'Success',
+                foundFanPage,
+            }); 
+
+    } catch (error) {
+        if(error === "noFanPageContent")  {
             return res.status(204).json({
                 status: 204,
                 message: 'No Content',
             });
-        } else {
-            return res.status(200).json({
-                status: 200,
-                message: 'Success',
-                foundFanPage,
-            });  
         }
-        
-    } catch (error) {
+
+        if(error === "noAuthor")  {
+            return res.status(204).json({
+                status: 204,
+                message: 'No Content Author',
+            });
+        }
+
         return res.status(500).json({
             status: 500,
             message: 'Server error',
         });
+        
     }
 }
 
