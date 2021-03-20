@@ -149,7 +149,7 @@ const createFanPage = async (req, res) => {
 
 const updateFanPage = async (req, res) => {
     try {
-        // Update the user information
+        // Update the fanPage information
         const updatedFanPage = await FanPage.findByIdAndUpdate(
             req.params.fanPageID,
             {
