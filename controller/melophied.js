@@ -14,7 +14,13 @@ const { hashPassword } = encrypt;
 
 const exploreData = async (req, res) => {
     try {
-        // need to send top five fan pages
+        // need to send top five fan pages with most upvotes 
+        const topFivePages = await FanPage.aggregate([
+            { $unwind: "$upvote" },
+            { $group: { _id: "$_id", author: "$author", len: { $sum: 1 } } },
+            { $sort: { len: -1 } },
+            { $limit: 5 }
+        ]);
 
         // send all fan pages based on created date desc order 
         const allPages = await FanPage.find().sort('-createdAt').select('pageTitle artist author');
@@ -22,9 +28,11 @@ const exploreData = async (req, res) => {
         return res.status(200).json({
             status: 200,
             message: 'Success',
-            allPages
+            topFivePages,
+            allPages,
         });
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             status: 500,
             message: 'Server error',

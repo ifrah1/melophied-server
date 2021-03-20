@@ -2,7 +2,7 @@ const fangPageData = [
     {
         author: "605242933784fd0bb0495709",
         artist: "TEST",
-        pageTitle: 'Test fanPage',
+        pageTitle: 'Test 1',
         pageBio: "if",
         userTracks: ['greg', 'coldplay'],
         userAlbums: ['greg', 'coldplay', 'raul'],
@@ -12,7 +12,7 @@ const fangPageData = [
     {
         author: "605242933784fd0bb0495709",
         artist: "Arif",
-        pageTitle: 'Test fanPage',
+        pageTitle: 'Test 2',
         pageBio: "if",
         userTracks: ['greg', 'coldplay', 'raul'],
         userAlbums: ['greg', 'coldplay', 'raul'],
@@ -22,7 +22,7 @@ const fangPageData = [
     {
         author: "605242933784fd0bb0495709",
         artist: "Drake",
-        pageTitle: 'Test fanPage',
+        pageTitle: 'Test 3',
         pageBio: "if",
         userTracks: ['greg', 'coldplay'],
         userAlbums: ['greg', 'coldplay', 'raul'],
