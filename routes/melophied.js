@@ -14,11 +14,17 @@ router.get('/', (req, res) => {
 //route: app.com/api/melophied/explore
 router.use('/explore', melophiedCtrls.exploreData);
 
+//GET
+//route: app.com/api/melophied/topFive
+router.use('/topFive', melophiedCtrls.topFivePages);
+
 //POST
 //route: app.com/api/melophied/createFanPage
+router.post('/fanPage/create', authenticateJWT, melophiedCtrls.createFanPage);
 
 //GET
 //route: app.com/api/melophied/getFanPage/:fanpageID
+router.get('/fanPage/:fanPageID', melophiedCtrls.getFanPage);
 
 //PUT
 //route: app.com/api/melophied/getFanPage/:fanpageID
@@ -28,6 +34,5 @@ router.use('/explore', melophiedCtrls.exploreData);
 
 //PUT
 //route: app.com/api/melophied/upvote/:userid //discuss later 
-
 
 export { router as melophied };

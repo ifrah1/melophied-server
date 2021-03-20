@@ -88,8 +88,7 @@ const verifyUsername = async (username) => {
         return true;
     }
 }
-
-      
+     
 const userQueries = {
     verifyUser,
     usernameEmailExist,

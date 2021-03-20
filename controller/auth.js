@@ -185,11 +185,14 @@ const updateUserData = async (req, res) => {
     }
 };
 
+
+
 const authCtrls = {
     login,
     register,
     getUserData,
     updateUserData,
+
 }
 
 export default authCtrls;
