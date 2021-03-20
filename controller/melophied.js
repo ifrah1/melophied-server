@@ -24,10 +24,10 @@ const createFanPage = async (req, res) => {
     try {
         const { artist,pageTitle,pageBio,userTracks,userAlbums,userShows } = req.body;
 
-        // check if user exists already based on username or email
+        // check if FanPage exists already based on username or email
         const fanPageExists = await fanPageExist( pageTitle );
 
-        // throw error if email or username exists
+        // throw error if pageTitle exists
         if (fanPageExists) throw fanPageExists;
 
         // create the user in DB
