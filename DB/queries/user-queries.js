@@ -93,7 +93,7 @@ const verifyUsername = async (username) => {
 const fanPageExist = async (pageTitle) => {
     try {
         // Check in Db if username exists
-        let foundFanPage = await FanPage.findOne({ pageTitle });
+        let foundFanPage = await FanPage.findOne({ author, pageTitle });
         if (foundFanPage) return 'fanPageExists';
 
         return false;

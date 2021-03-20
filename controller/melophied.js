@@ -22,16 +22,17 @@ const exploreData = (req, res) => {
 const createFanPage = async (req, res) => {
     console.log("start of create FanPage function")
     try {
-        const { artist,pageTitle,pageBio,userTracks,userAlbums,userShows } = req.body;
+        const { author,artist,pageTitle,pageBio,userTracks,userAlbums,userShows } = req.body;
 
-        // check if FanPage exists already based on username or email
-        const fanPageExists = await fanPageExist( pageTitle );
+        // check if FanPage exists already based on author or pageTitle
+        const fanPageExists = await fanPageExist( author, pageTitle );
 
         // throw error if pageTitle exists
         if (fanPageExists) throw fanPageExists;
 
         // create the user in DB
         const newFanPage = {
+            author,
             artist,
             pageTitle,
             pageBio,
