@@ -24,11 +24,9 @@ const createFanPage = async (req, res) => {
     try {
         const { author,artist,pageTitle,pageBio,userTracks,userAlbums,userShows } = req.body;
 
-        // check if FanPage exists already based on author or pageTitle
-        const fanPageExists = await fanPageExist( artist, pageTitle );
-
+        
         // throw error if pageTitle exists
-        if (fanPageExists) throw fanPageExists;
+        if ( !pageTitle || !artist || !author ) throw "missingRequiredFields";
 
         // create the user in DB
         const newFanPage = {
@@ -53,10 +51,11 @@ const createFanPage = async (req, res) => {
         console.log(error); //keep just incase if db error
 
         //fan page already exists error 
-        if ( error === "fanPageExists" ) {
+        if ( error === "missingRequiredFields" ) {
             return res.status(409).json({
                 status: 409,
-                message: "This fan page name already exists"
+                message: "Missing Required Fields",
+                received: req.body
             });
         }
 

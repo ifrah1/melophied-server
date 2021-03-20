@@ -89,27 +89,12 @@ const verifyUsername = async (username) => {
         return true;
     }
 }
-
-const fanPageExist = async (pageTitle) => {
-    try {
-        // Check in Db if username exists
-        let foundFanPage = await FanPage.findOne({ author, pageTitle });
-        if (foundFanPage) return 'fanPageExists';
-
-        return false;
-
-    } catch (error) {
-        return false;
-    }
-}
-
-      
+     
 const userQueries = {
     verifyUser,
     usernameEmailExist,
     updateUser,
     verifyUsername,
-    fanPageExist,
 }
 
 export default userQueries;
