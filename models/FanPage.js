@@ -6,8 +6,9 @@ const FanPageSchema = new mongoose.Schema(
             type: mongoose.Types.ObjectId,
             ref: 'User'
         },
-        artist: {
-            type: String,
+        artistData: {
+            type: Map,
+            of: String,
             required: true,
         },
         pageTitle: {
@@ -18,12 +19,14 @@ const FanPageSchema = new mongoose.Schema(
             type: String,
             required: false,
         },
-        userTracks: [{
-            type: String,
+        trackList: [{
+            type: Map,
+            of: String,
             required: false,
         }],
-        userAlbums: [{
-            type: String,
+        albumList: [{
+            type: Map,
+            of: String,
             required: false,
         }],
         userShows: [{
