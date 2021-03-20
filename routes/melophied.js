@@ -20,7 +20,7 @@ router.post('/createFanPage',authenticateJWT, melophiedCtrls.createFanPage);
 
 //GET
 //route: app.com/api/melophied/getFanPage/:fanpageID
-
+router.get('/getFanPage/:fanPageID', melophiedCtrls.getFanPage);
 //PUT
 //route: app.com/api/melophied/getFanPage/:fanpageID
 
