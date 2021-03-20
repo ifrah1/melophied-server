@@ -31,7 +31,7 @@ router.get('/fanPage/:fanPageID', melophiedCtrls.getFanPage);
 
 //DELETE
 //route: app.com/api/melophied/getFanPage/:fanpageID
-router.delete('/:fanPageID/delete', melophiedCtrls.destroyFanPage );
+router.delete('/fanPage/:fanPageID/delete', authenticateJWT, melophiedCtrls.destroyFanPage );
 //PUT
 //route: app.com/api/melophied/upvote/:userid //discuss later 
 
