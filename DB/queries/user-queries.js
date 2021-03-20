@@ -1,5 +1,4 @@
 import bcrypt from 'bcrypt';
-import FanPage from '../../models/FanPage.js';
 import db from '../../models/index.js';
 
 const { User } = db;
