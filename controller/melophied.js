@@ -60,7 +60,6 @@ const getFanPage = async (req, res) => {
 
 //create FanPage
 const createFanPage = async (req, res) => {
-    console.log("start of create FanPage function")
     try {
         const { author,artist,pageTitle,pageBio,userTracks,userAlbums,userShows } = req.body;
 
@@ -79,11 +78,12 @@ const createFanPage = async (req, res) => {
             userShows,
         };
         // send FanPage to db for creation
-        await FanPage.create(newFanPage);
-        console.log("FanPage sent to DB")
+        const fanPage = await FanPage.create(newFanPage);
+
         return res.status(201).json({
             status: 201,
             message: 'FanPage was created successfully',
+            fanPage,
             requestedAt: new Date().toLocaleString(),
         });
 
