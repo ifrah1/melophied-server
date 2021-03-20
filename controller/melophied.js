@@ -18,8 +18,15 @@ const exploreData = (req, res) => {
 
 }
 
+const createFanPage = async (req, res) => {
+
+    return res.send('Test CreateFanPage');
+
+}
+
 const melophiedCtrls = {
     exploreData,
+    createFanPage
 }
 
 export default melophiedCtrls;

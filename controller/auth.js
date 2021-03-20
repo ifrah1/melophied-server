@@ -3,7 +3,7 @@ import jwtFunctions from '../auth/jwt.js';
 import encrypt from '../auth/encrypt.js';
 import db from '../models/index.js';
 
-const { User } = db;
+const { User,FanPage } = db;
 //import user queries functions
 const { verifyUser, usernameEmailExist, updateUser, verifyUsername } = userQueries;
 //import jwt functions
@@ -185,11 +185,69 @@ const updateUserData = async (req, res) => {
     }
 };
 
+//create FanPage
+const createFanPage = async (req, res) => {
+    try {
+        const { author,artist,pageTitle,pageBio,userTracks,userAlbums,userShows } = req.body;
+
+        // check if user exists already based on username or email
+        const exists = await fanPageExist(author,artist, pageTitle);
+
+        // throw error if email or username exists
+        if (exists) throw exists;
+
+        // create the user in DB
+        const newFanPage = {
+            author,
+            artist,
+            pageTitle,
+            pageBio,
+            userTracks,
+            userAlbums,
+            userShows,
+        };
+        // send user to db for creation
+        await FanPage.create(newFanPage);
+
+        return res.status(201).json({
+            status: 201,
+            message: 'Fan was created successfully',
+            requestedAt: new Date().toLocaleString(),
+        });
+
+    } catch (error) {
+        console.log(error); //keep just incase if db error
+
+        //user already exists error 
+        if (error === "emailExists" || error === "usernameExists") {
+            return res.status(409).json({
+                status: 409,
+                message: error,
+            });
+        }
+
+        // password does not match error
+        if (error === "passwordMismatch") {
+            return res.status(401).json({
+                status: 401,
+                message: error,
+            });
+        }
+
+        // all other errors 
+        return res.status(500).json({
+            status: 500,
+            message: "Server error",
+        });
+    }
+}
+
 const authCtrls = {
     login,
     register,
     getUserData,
     updateUserData,
+    createFanPage,
 }
 
 export default authCtrls;
