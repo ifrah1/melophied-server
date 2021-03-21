@@ -15,7 +15,7 @@ const FanPageSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        pageBio: {
+        pageDetail: {
             type: String,
             required: false,
         },
