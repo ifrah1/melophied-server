@@ -101,7 +101,7 @@ const getFanPage = async (req, res) => {
 //create FanPage
 const createFanPage = async (req, res) => {
     try {
-        const { artistData, pageTitle, pageBio, trackList, albumList, userShows } = req.body;
+        const { artistData, pageTitle, pageDetail, trackList, albumList, userShows } = req.body;
         console.log(req.user);
 
         // throw error if pageTitle exists
@@ -112,7 +112,7 @@ const createFanPage = async (req, res) => {
             author: req.user._id,
             artistData,
             pageTitle,
-            pageBio,
+            pageDetail,
             trackList,
             albumList,
             userShows,
