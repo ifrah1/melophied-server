@@ -175,10 +175,23 @@ const updateUpvote = async (req, res) => {
                 updatedFanPage
             });
         } else {
+            const updatedFanPage = await FanPage.findByIdAndUpdate(
+                req.params.fanPageID,
+                {
+                    $pull: {
+                        "upvote": req.user._id
+                    }
+                },
+                {
+                    new: true
+                }
+            );
+
             // all other errors 
             return res.status(200).json({
                 status: 200,
                 message: "User already Liked",
+                updatedFanPage
             });
         }
 
