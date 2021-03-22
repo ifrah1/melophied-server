@@ -147,11 +147,28 @@ const createFanPage = async (req, res) => {
     }
 }
 
+const updateUpvote = async (req, res) => {
+    try {
+        // all other errors 
+        return res.status(200).json({
+            status: 200,
+            message: "Made it to vote ctrl",
+        });
+    } catch (error) {
+        // all other errors 
+        return res.status(500).json({
+            status: 500,
+            message: "Server error",
+        });
+    }
+}
+
 const melophiedCtrls = {
     exploreData,
     createFanPage,
     getFanPage,
-    topFivePages
+    topFivePages,
+    updateUpvote,
 }
 
 export default melophiedCtrls;

@@ -34,5 +34,7 @@ router.get('/fanPage/:fanPageID', melophiedCtrls.getFanPage);
 
 //PUT
 //route: app.com/api/melophied/upvote/:userid //discuss later 
+router.put('/fanPage/upvote/:fanPageID', authenticateJWT, melophiedCtrls.updateUpvote);
+
 
 export { router as melophied };
