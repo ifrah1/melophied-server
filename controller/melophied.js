@@ -149,11 +149,39 @@ const createFanPage = async (req, res) => {
 
 const updateUpvote = async (req, res) => {
     try {
-        // all other errors 
-        return res.status(200).json({
-            status: 200,
-            message: "Made it to vote ctrl",
+        //see if the current fanPage is already liked by the user
+        const check = await FanPage.find({
+            upvote: req.user._id
         });
+        console.log("Line 156", check);
+
+        if (!check.length) {
+            console.log("empty")
+            const updatedFanPage = await FanPage.findByIdAndUpdate(
+                req.params.fanPageID,
+                {
+                    $push: {
+                        "upvote": req.user._id
+                    }
+                },
+                {
+                    new: true
+                }
+            );
+            // all other errors 
+            return res.status(200).json({
+                status: 200,
+                message: "Success",
+                updatedFanPage
+            });
+        } else {
+            // all other errors 
+            return res.status(200).json({
+                status: 200,
+                message: "User already Liked",
+            });
+        }
+
     } catch (error) {
         // all other errors 
         return res.status(500).json({
