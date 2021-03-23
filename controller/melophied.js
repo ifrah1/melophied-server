@@ -150,13 +150,9 @@ const createFanPage = async (req, res) => {
 const updateFanPage = async (req, res) => {
     try {
         // // Validation for TitlePage is not null
-        if(FanPage.pageTitle === null) {
-            return res.status(409).json({
-                status: 409,
-                message: "Missing Required Fields",
-                received: req.body
-            });
-        }
+        const { pageTitle } = req.body;
+
+        if (!pageTitle) throw "missingRequiredFields";
         
         // Update the fanPage information
         const updatedFanPage = await FanPage.findByIdAndUpdate(
