@@ -162,23 +162,23 @@ const createFanPage = async (req, res) => {
 }
 
 // FanPage Delete
-const destroyFanPage = async ( req, res ) => {
+const destroyFanPage = async (req, res) => {
     try {
-      const deletedFanPage = await db.FanPage.findByIdAndDelete( req.params.fanPageID );
-      return res.status(200).json({
-        status: 200,
-        message: 'Fan Page Deleted Successfully!!!!',
-        deletedFanPage,
-        requestedAt: new Date().toLocaleString(),
-      });
+        const deletedFanPage = await db.FanPage.findByIdAndDelete(req.params.fanPageID);
+        return res.status(200).json({
+            status: 200,
+            message: 'Fan Page Deleted Successfully!!!!',
+            deletedFanPage,
+            requestedAt: new Date().toLocaleString(),
+        });
     } catch (error) {
-      res.status(500).json({
-        status: 500,
-        message: 'Sorry something went wrong. Internal server Error',
-        requestAt: new Date().toLocaleString()
-      });
+        res.status(500).json({
+            status: 500,
+            message: 'Sorry something went wrong. Internal server Error',
+            requestAt: new Date().toLocaleString()
+        });
     }
-  };
+};
 
 const updateFanPage = async (req, res) => {
     try {
@@ -186,20 +186,20 @@ const updateFanPage = async (req, res) => {
         const { pageTitle } = req.body;
 
         if (!pageTitle) throw "missingRequiredFields";
-        
+
         // Update the fanPage information
         const updatedFanPage = await FanPage.findByIdAndUpdate(
             req.params.fanPageID,
             {
-                $set:{
+                $set: {
                     ...req.body
                 }
             },
             {
                 new: true
             }
-            );
- 
+        );
+
         return res.status(200).json({
             status: 200,
             message: 'Success',
@@ -229,6 +229,9 @@ const updateUpvote = async (req, res) => {
             upvote: userDBId
         });
 
+        console.log('Line 232', check);
+
+
         if (!check.length) {
             //call addUpvote to add the user to upvote for fan page
             const updatedFanPage = await addUpvote(fanPageId, userDBId);
@@ -243,6 +246,8 @@ const updateUpvote = async (req, res) => {
             });
         }
 
+        console.log('Line 249', check);
+
         const updatedFanPage = await removeUpvote(fanPageId, userDBId);
         //throw error if DB failed to update
         if (updatedFanPage === false) throw 'removeUpvoteFailed';
@@ -255,6 +260,8 @@ const updateUpvote = async (req, res) => {
         });
 
     } catch (error) {
+        console.log(error);
+
         // send error message if addUpvote fails
         if (error === "addUpvoteFailed") {
             return res.status(400).json({
