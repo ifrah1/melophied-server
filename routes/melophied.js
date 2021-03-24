@@ -33,6 +33,8 @@ router.put('/fanPage/update/:fanPageID', authenticateJWT, melophiedCtrls.updateF
 //route: app.com/api/melophied/getFanPage/:fanpageID
 
 //PUT
-//route: app.com/api/melophied/upvote/:userid //discuss later 
+//route: app.com/api/melophied/fanPage/upvote/:userid
+router.put('/fanPage/upvote/:fanPageID', authenticateJWT, melophiedCtrls.updateUpvote);
+
 
 export { router as melophied };

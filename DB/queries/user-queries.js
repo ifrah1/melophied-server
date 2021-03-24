@@ -54,16 +54,16 @@ const updateUser = async (userID, newUserData) => {
         const updatedUser = await User.findByIdAndUpdate(
             userID,
             {
-                $set:{
+                $set: {
                     ...newUserData
                 }
             },
             {
                 new: true
             }
-         );
+        );
 
-         return updatedUser;
+        return updatedUser;
 
     } catch (error) {
         console.log(error);
@@ -73,7 +73,7 @@ const updateUser = async (userID, newUserData) => {
 
 // Checking the database to see if the new chosen username exists
 const verifyUsername = async (username) => {
-        try {
+    try {
         // Check if the username already exists
         let foundUser = await User.findOne({ username });
 
@@ -88,7 +88,7 @@ const verifyUsername = async (username) => {
         return true;
     }
 }
-     
+
 const userQueries = {
     verifyUser,
     usernameEmailExist,
