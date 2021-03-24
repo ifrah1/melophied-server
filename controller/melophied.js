@@ -17,6 +17,7 @@ const exploreData = async (req, res) => {
             status: 200,
             message: 'Success',
             allPages,
+            requestAt: new Date().toLocaleString()
         });
     } catch (error) {
         console.log(error)
@@ -25,12 +26,14 @@ const exploreData = async (req, res) => {
             return res.status(204).json({
                 status: 204,
                 message: 'No Fan Pages',
+                requestAt: new Date().toLocaleString()
             });
         }
 
         return res.status(500).json({
             status: 500,
             message: 'Server error',
+            requestAt: new Date().toLocaleString()
         });
     }
 }
@@ -50,12 +53,14 @@ const topFivePages = async (req, res) => {
             status: 200,
             message: 'Success',
             topFivePages,
+            requestAt: new Date().toLocaleString()
         });
     } catch (error) {
         console.log(error)
         return res.status(500).json({
             status: 500,
             message: 'Server error',
+            requestAt: new Date().toLocaleString()
         });
     }
 }
@@ -76,6 +81,7 @@ const getFanPage = async (req, res) => {
             status: 200,
             message: 'Success',
             foundFanPage,
+            requestAt: new Date().toLocaleString()
         });
 
     } catch (error) {
@@ -83,6 +89,7 @@ const getFanPage = async (req, res) => {
             return res.status(204).json({
                 status: 204,
                 message: 'No Content',
+                requestAt: new Date().toLocaleString()
             });
         }
 
@@ -90,12 +97,14 @@ const getFanPage = async (req, res) => {
             return res.status(204).json({
                 status: 204,
                 message: 'No Content Author',
+                requestAt: new Date().toLocaleString()
             });
         }
 
         return res.status(500).json({
             status: 500,
             message: 'Server error',
+            requestAt: new Date().toLocaleString()
         });
 
     }
@@ -138,7 +147,8 @@ const createFanPage = async (req, res) => {
             return res.status(409).json({
                 status: 409,
                 message: "Missing Required Fields",
-                received: req.body
+                received: req.body,
+                requestAt: new Date().toLocaleString()
             });
         }
 
@@ -146,9 +156,29 @@ const createFanPage = async (req, res) => {
         return res.status(500).json({
             status: 500,
             message: "Server error",
+            requestAt: new Date().toLocaleString()
         });
     }
 }
+
+// FanPage Delete
+const destroyFanPage = async ( req, res ) => {
+    try {
+      const deletedFanPage = await db.FanPage.findByIdAndDelete( req.params.fanPageID );
+      return res.status(200).json({
+        status: 200,
+        message: 'Fan Page Deleted Successfully!!!!',
+        deletedFanPage,
+        requestedAt: new Date().toLocaleString(),
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: 500,
+        message: 'Sorry something went wrong. Internal server Error',
+        requestAt: new Date().toLocaleString()
+      });
+    }
+  };
 
 const updateFanPage = async (req, res) => {
     try {
@@ -174,6 +204,7 @@ const updateFanPage = async (req, res) => {
             status: 200,
             message: 'Success',
             updatedFanPage,
+            requestAt: new Date().toLocaleString()
         });
 
     } catch (error) {
@@ -183,6 +214,7 @@ const updateFanPage = async (req, res) => {
         return res.status(500).json({
             status: 500,
             message: "Server Error",
+            requestAt: new Date().toLocaleString()
         });
     }
 }
@@ -206,7 +238,8 @@ const updateUpvote = async (req, res) => {
             return res.status(200).json({
                 status: 200,
                 message: "Success, page upvoted by user",
-                updatedFanPage
+                updatedFanPage,
+                requestAt: new Date().toLocaleString()
             });
         }
 
@@ -217,7 +250,8 @@ const updateUpvote = async (req, res) => {
         return res.status(200).json({
             status: 200,
             message: "Success, page un-upvoted by user ",
-            updatedFanPage
+            updatedFanPage,
+            requestAt: new Date().toLocaleString()
         });
 
     } catch (error) {
@@ -226,6 +260,7 @@ const updateUpvote = async (req, res) => {
             return res.status(400).json({
                 status: 400,
                 message: 'addUpvote failed to update upvote',
+                requestAt: new Date().toLocaleString()
             });
         }
 
@@ -234,6 +269,7 @@ const updateUpvote = async (req, res) => {
             return res.status(400).json({
                 status: 400,
                 message: 'removeUpvote failed to update upvote',
+                requestAt: new Date().toLocaleString()
             });
         }
 
@@ -241,6 +277,7 @@ const updateUpvote = async (req, res) => {
         return res.status(500).json({
             status: 500,
             message: "Server Error",
+            requestAt: new Date().toLocaleString()
         });
     }
 }
@@ -250,6 +287,7 @@ const melophiedCtrls = {
     createFanPage,
     getFanPage,
     topFivePages,
+    destroyFanPage,
     updateFanPage,
     updateUpvote,
 }
