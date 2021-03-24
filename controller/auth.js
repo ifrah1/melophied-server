@@ -172,10 +172,14 @@ const updateUserData = async (req, res) => {
 
         if (updateUser === false) throw 'updatedUserFailed';
 
+        //create a new jwt to be returned
+        const userJWT = createToken(updatedUser);
+
         return res.status(200).json({
             status: 200,
             message: 'Success',
             updatedUser,
+            userJWT,
             requestAt: new Date().toLocaleString()
         });
     } catch (error) {
@@ -211,7 +215,6 @@ const authCtrls = {
     register,
     getUserData,
     updateUserData,
-
 }
 
 export default authCtrls;
