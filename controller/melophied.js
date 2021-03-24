@@ -41,10 +41,17 @@ const exploreData = async (req, res) => {
 // return top five fan pages based on upvote
 const topFivePages = async (req, res) => {
     try {
-        // need to send top five fan pages with most upvotes 
+        // send top five fan pages with most upvotes in desc order 
         const topFivePages = await FanPage.aggregate([
             { $unwind: "$upvote" },
-            { $group: { _id: "$_id", len: { $sum: 1 } } },
+            {
+                $group: {
+                    //returns the fields we want returned
+                    _id: { id: '$_id', pageTitle: '$pageTitle', artistData: '$artistData' },
+                    //gives us the number of elements in upvote array (min is set to 1); 
+                    len: { $sum: 1 }
+                }
+            },
             { $sort: { len: -1 } },
             { $limit: 5 }
         ]);
