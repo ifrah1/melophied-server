@@ -150,6 +150,43 @@ const createFanPage = async (req, res) => {
     }
 }
 
+const updateFanPage = async (req, res) => {
+    try {
+        // // Validation for TitlePage is not null
+        const { pageTitle } = req.body;
+
+        if (!pageTitle) throw "missingRequiredFields";
+        
+        // Update the fanPage information
+        const updatedFanPage = await FanPage.findByIdAndUpdate(
+            req.params.fanPageID,
+            {
+                $set:{
+                    ...req.body
+                }
+            },
+            {
+                new: true
+            }
+            );
+ 
+        return res.status(200).json({
+            status: 200,
+            message: 'Success',
+            updatedFanPage,
+        });
+
+    } catch (error) {
+        console.log(error); //keep just incase if db error
+
+        // all other errors 
+        return res.status(500).json({
+            status: 500,
+            message: "Server Error",
+        });
+    }
+}
+
 const updateUpvote = async (req, res) => {
     try {
         const userDBId = req.user._id;
@@ -203,7 +240,7 @@ const updateUpvote = async (req, res) => {
         // all other errors 
         return res.status(500).json({
             status: 500,
-            message: "Server error",
+            message: "Server Error",
         });
     }
 }
@@ -213,6 +250,7 @@ const melophiedCtrls = {
     createFanPage,
     getFanPage,
     topFivePages,
+    updateFanPage,
     updateUpvote,
 }
 
