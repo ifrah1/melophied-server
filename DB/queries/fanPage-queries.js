@@ -30,7 +30,7 @@ const removeUpvote = async (pageId, userId) => {
         const updatedFanPage = await FanPage.findByIdAndUpdate(
             pageId,
             {
-                $pull: {
+                $pull: {    // removes the userid from the array 
                     "upvote": userId
                 }
             },
@@ -45,7 +45,6 @@ const removeUpvote = async (pageId, userId) => {
         return false;
     }
 }
-
 
 const fanPageQueries = {
     addUpvote,
