@@ -53,6 +53,7 @@ const register = async (req, res) => {
             return res.status(409).json({
                 status: 409,
                 message: error,
+                requestAt: new Date().toLocaleString()
             });
         }
 
@@ -61,6 +62,7 @@ const register = async (req, res) => {
             return res.status(401).json({
                 status: 401,
                 message: error,
+                requestAt: new Date().toLocaleString()
             });
         }
 
@@ -68,6 +70,7 @@ const register = async (req, res) => {
         return res.status(500).json({
             status: 500,
             message: "Server error",
+            requestAt: new Date().toLocaleString()
         });
     }
 }
@@ -91,7 +94,8 @@ const login = async (req, res) => {
             return res.status(200).json({
                 status: 200,
                 message: 'Success',
-                userJWT
+                userJWT,
+                requestAt: new Date().toLocaleString()
             });
         } else {
             throw 'Invalid Credentials';
@@ -103,12 +107,14 @@ const login = async (req, res) => {
             return res.status(401).json({
                 status: 401,
                 message: 'Invalid Credentials',
+                requestAt: new Date().toLocaleString()
             });
         }
 
         return res.status(500).json({
             status: 500,
             message: 'Server error',
+            requestAt: new Date().toLocaleString()
         });
     }
 };
@@ -129,12 +135,14 @@ const getUserData = async (req, res) => {
         return res.status(200).json({
             status: 200,
             message: 'Success',
-            foundUser
+            foundUser,
+            requestAt: new Date().toLocaleString()
         });
     } catch (error) {
         return res.status(500).json({
             status: 500,
             message: 'Server error',
+            requestAt: new Date().toLocaleString()
         });
     }
 };
@@ -162,6 +170,7 @@ const updateUserData = async (req, res) => {
             status: 200,
             message: 'Success',
             updatedUser,
+            requestAt: new Date().toLocaleString()
         });
     } catch (error) {
         console.log(error)
@@ -171,6 +180,7 @@ const updateUserData = async (req, res) => {
             return res.status(400).json({
                 status: 400,
                 message: 'Failed to update user',
+                requestAt: new Date().toLocaleString()
             });
         }
         // send message if username already exists
@@ -178,17 +188,17 @@ const updateUserData = async (req, res) => {
             return res.status(400).json({
                 status: 400,
                 message: 'Username already exists',
+                requestAt: new Date().toLocaleString()
             });
         }
 
         return res.status(500).json({
             status: 500,
             message: 'Server error',
+            requestAt: new Date().toLocaleString()
         });
     }
 };
-
-
 
 const authCtrls = {
     login,
