@@ -1,6 +1,9 @@
 import db from '../models/index.js';
+import fanPageQueries from '../DB/queries/fanPage-queries.js';
 
 const { User, FanPage } = db;
+//add fanPage queries
+const { addUpvote, removeUpvote } = fanPageQueries;
 
 // return all fan pages ordered by date created
 const exploreData = async (req, res) => {
@@ -147,11 +150,70 @@ const createFanPage = async (req, res) => {
     }
 }
 
+const updateUpvote = async (req, res) => {
+    try {
+        const userDBId = req.user._id;
+        const fanPageId = req.params.fanPageID;
+
+        //see if the current fanPage is already liked by the user
+        const check = await FanPage.find({
+            upvote: userDBId
+        });
+
+        if (!check.length) {
+            //call addUpvote to add the user to upvote for fan page
+            const updatedFanPage = await addUpvote(fanPageId, userDBId);
+            //throw error if addUpvote sends false 
+            if (updatedFanPage === false) throw "addUpvoteFailed";
+
+            return res.status(200).json({
+                status: 200,
+                message: "Success, page upvoted by user",
+                updatedFanPage
+            });
+        }
+
+        const updatedFanPage = await removeUpvote(fanPageId, userDBId);
+        //throw error if DB failed to update
+        if (updatedFanPage === false) throw 'removeUpvoteFailed';
+
+        return res.status(200).json({
+            status: 200,
+            message: "Success, page un-upvoted by user ",
+            updatedFanPage
+        });
+
+    } catch (error) {
+        // send error message if addUpvote fails
+        if (error === "addUpvoteFailed") {
+            return res.status(400).json({
+                status: 400,
+                message: 'addUpvote failed to update upvote',
+            });
+        }
+
+        // send error message if addUpvote fails
+        if (error === "removeUpvoteFailed") {
+            return res.status(400).json({
+                status: 400,
+                message: 'removeUpvote failed to update upvote',
+            });
+        }
+
+        // all other errors 
+        return res.status(500).json({
+            status: 500,
+            message: "Server error",
+        });
+    }
+}
+
 const melophiedCtrls = {
     exploreData,
     createFanPage,
     getFanPage,
-    topFivePages
+    topFivePages,
+    updateUpvote,
 }
 
 export default melophiedCtrls;
