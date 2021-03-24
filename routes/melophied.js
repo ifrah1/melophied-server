@@ -19,21 +19,24 @@ router.use('/explore', melophiedCtrls.exploreData);
 router.use('/topFive', melophiedCtrls.topFivePages);
 
 //POST
-//route: app.com/api/melophied/createFanPage
+//route: app.com/api/melophied/fanPage/create
 router.post('/fanPage/create', authenticateJWT, melophiedCtrls.createFanPage);
 
 //GET
-//route: app.com/api/melophied/getFanPage/:fanpageID
+//route: app.com/api/melophied/fanPage/:fanPageID
 router.get('/fanPage/:fanPageID', melophiedCtrls.getFanPage);
 
 //PUT
-//route: app.com/api/melophied/getFanPage/:fanpageID
+//route: app.com/api/melophied/fanPage/update/:fanPageID
+router.put('/fanPage/update/:fanPageID', authenticateJWT, melophiedCtrls.updateFanPage)
 
 //DELETE
-//route: app.com/api/melophied/getFanPage/:fanpageID
-router.delete('/fanPage/:fanPageID/delete', authenticateJWT, melophiedCtrls.destroyFanPage );
+//route: app.com/api/melophied/fanPage/delete/:fanPageID
+router.delete('/fanPage/delete/:fanPageID', authenticateJWT, melophiedCtrls.destroyFanPage );
 
 //PUT
-//route: app.com/api/melophied/upvote/:userid //discuss later 
+//route: app.com/api/melophied/fanPage/upvote/:fanPageID
+router.put('/fanPage/upvote/:fanPageID', authenticateJWT, melophiedCtrls.updateUpvote);
+
 
 export { router as melophied };
