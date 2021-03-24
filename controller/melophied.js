@@ -226,11 +226,9 @@ const updateUpvote = async (req, res) => {
 
         //see if the current fanPage is already liked by the user
         const check = await FanPage.find({
+            _id: fanPageId,
             upvote: userDBId
         });
-
-        console.log('Line 232', check);
-
 
         if (!check.length) {
             //call addUpvote to add the user to upvote for fan page
@@ -245,8 +243,6 @@ const updateUpvote = async (req, res) => {
                 requestAt: new Date().toLocaleString()
             });
         }
-
-        console.log('Line 249', check);
 
         const updatedFanPage = await removeUpvote(fanPageId, userDBId);
         //throw error if DB failed to update
