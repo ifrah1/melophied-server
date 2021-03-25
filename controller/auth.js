@@ -24,6 +24,7 @@ const register = async (req, res) => {
 
         // throw error if email or username exists
         if (exists) throw exists;
+        if (exists === 'serverError') throw exists;
 
         // make user password and verify password matches just to be safe
         if (password !== verifiedPassword) throw 'passwordMismatch';
