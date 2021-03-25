@@ -158,7 +158,7 @@ const updateUserData = async (req, res) => {
         //grab userID
         const userID = req.params.userID;
         //username from React front end
-        const username = req.body.username.toLowerCase();
+        const username = req.body.username;
         //grab username from MongoDB
         const foundUser = await User.findById(userID).select('-password');
 
