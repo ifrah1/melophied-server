@@ -12,11 +12,11 @@ router.get('/', (req, res) => {
 
 //GET
 //route: app.com/api/melophied/explore
-router.use('/explore', melophiedCtrls.exploreData);
+router.get('/explore', melophiedCtrls.exploreData);
 
 //GET
 //route: app.com/api/melophied/topFive
-router.use('/topFive', melophiedCtrls.topFivePages);
+router.get('/topFive', melophiedCtrls.topFivePages);
 
 //POST
 //route: app.com/api/melophied/fanPage/create
