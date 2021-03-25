@@ -14,13 +14,17 @@ const { hashPassword } = encrypt;
 // register new user
 const register = async (req, res) => {
     try {
-        const { firstName, lastName, email, username, password, verifiedPassword } = req.body;
+        const { firstName, lastName, email, password, verifiedPassword } = req.body;
+
+        //make username lowercase 
+        const username = req.body.username.toLowerCase();
 
         // check if user exists already based on username or email
         const exists = await usernameEmailExist(username, email);
 
         // throw error if email or username exists
         if (exists) throw exists;
+        if (exists === 'serverError') throw exists;
 
         // make user password and verify password matches just to be safe
         if (password !== verifiedPassword) throw 'passwordMismatch';
@@ -79,8 +83,8 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     try {
         // grab data from body
-        const { username, password } = req.body;
-
+        const { password } = req.body;
+        const username = req.body.username.toLowerCase();
         // check if credentials are empty 
         if (!username || !password) throw 'Invalid Credentials';
 
@@ -150,9 +154,12 @@ const getUserData = async (req, res) => {
 // update the user data
 const updateUserData = async (req, res) => {
     try {
+        //make username lowercase 
+        req.body.username = req.body.username.toLowerCase();
+        //grab userID
         const userID = req.params.userID;
         //username from React front end
-        const { username } = req.body;
+        const username = req.body.username;
         //grab username from MongoDB
         const foundUser = await User.findById(userID).select('-password');
 
@@ -166,10 +173,14 @@ const updateUserData = async (req, res) => {
 
         if (updateUser === false) throw 'updatedUserFailed';
 
+        //create a new jwt to be returned
+        const userJWT = createToken(updatedUser);
+
         return res.status(200).json({
             status: 200,
             message: 'Success',
             updatedUser,
+            userJWT,
             requestAt: new Date().toLocaleString()
         });
     } catch (error) {
@@ -205,7 +216,6 @@ const authCtrls = {
     register,
     getUserData,
     updateUserData,
-
 }
 
 export default authCtrls;

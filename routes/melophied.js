@@ -32,11 +32,10 @@ router.put('/fanPage/update/:fanPageID', authenticateJWT, melophiedCtrls.updateF
 
 //DELETE
 //route: app.com/api/melophied/fanPage/delete/:fanPageID
-router.delete('/fanPage/delete/:fanPageID', authenticateJWT, melophiedCtrls.destroyFanPage );
+router.delete('/fanPage/delete/:fanPageID', authenticateJWT, melophiedCtrls.destroyFanPage);
 
 //PUT
 //route: app.com/api/melophied/fanPage/upvote/:fanPageID
 router.put('/fanPage/upvote/:fanPageID', authenticateJWT, melophiedCtrls.updateUpvote);
-
 
 export { router as melophied };

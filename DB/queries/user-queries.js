@@ -44,7 +44,7 @@ const usernameEmailExist = async (username, email) => {
         return false;
 
     } catch (error) {
-        return false;
+        return "serverError";
     }
 }
 
@@ -85,7 +85,7 @@ const verifyUsername = async (username) => {
 
     } catch (error) {
         console.log(error);
-        return true;
+        return false;
     }
 }
 
